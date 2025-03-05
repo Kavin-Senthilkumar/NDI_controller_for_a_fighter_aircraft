@@ -1,29 +1,53 @@
 %Simulating 6DOF equations of an aircraft without any controller
 
 function dydt = dof(t,y)
-u = y(1);v = y(2);w = y(3);p = y(4) ;q= y(5);r = y(6); phi = deg2rad(y(7)); theta = deg2rad(y(8)); psi = deg2rad(y(9)); xpos = y(10);ypos = y(11); zpos = y(12);
+u = y(1); %forward velocity - component of the aircraft’s velocity along its longitudinal (x-body) axis
 
-Cx = 0.05;
-Cy = 0.02;
-Cz = 0.1;
+v = y(2); %lateral velocity - The sideways velocity along the aircraft’s lateral (y-body) axis
 
-m = 1000;
-g = 9.81;
+w = y(3); %vertical velocity - The velocity along the vertical (z-body) axis
 
-sigmaT = deg2rad(10);
-qbar = 250;
-S= 2;
-T = 5000;
+p = y(4); %roll rate - The angular velocity about the longitudinal (x-body) axis
 
-Ixx = 10000;
-Iyy = 20000;
-Izz = 30000;
-Ixz = 500;
-b = 15;
-c = 3;
-Cl = 0.005;
-Cm = -0.02;
-Cn = 0.01;
+q= y(5); %pitch rate - The angular velocity about the lateral (y-body) axis
+
+r = y(6); %yaw rate - The angular velocity about the vertical (z-body) axis
+
+phi = deg2rad(y(7)); %roll angle - The angle of rotation about the longitudinal axis, indicating the bank angle of the wings
+
+theta = deg2rad(y(8)); %pitch angle - The angle of rotation about the lateral axis, indicating the nose-up or nose-down attitude
+
+psi = deg2rad(y(9)); %yaw angle - The angle of rotation about the vertical axis, indicating the heading of the aircraft
+
+xpos = y(10);
+
+ypos = y(11); 
+
+zpos = y(12);
+
+Cx = 0.05; % Longitudinal force coefficient
+Cy = 0.02; % Lateral force coefficient
+Cz = 0.1; % Vertical force coefficient
+
+m = 1000; % mass of the aircraft
+g = 9.81; % gravitational acceleration
+
+sigmaT = deg2rad(10); % Thrust angle
+qbar = 250;  % Dynamic pressure
+S= 2;  % Wing area
+T = 5000; % Thrust
+
+Ixx = 10000; % Moment of inertia about the x axis
+Iyy = 20000; % Moment of inertia about the y axis
+Izz = 30000; % Moment of inertia about the z axis
+Ixz = 500; % Product of inertia between x and z axes
+
+b = 15; % Wingspan
+c = 3; % Mean aerodynamic chord
+Cl = 0.005; % Rolling moment coefficient
+Cm = -0.02; % Pitching moment coefficient
+Cn = 0.01; % Yawing moment coefficient
+
 %change in linear velocity - Force equations
 udot = -(q*w) + (r*v) -(g*sin(theta)) +(qbar*S*Cx)/m + (T*cos(sigmaT))/m;
 vdot = -(r*u) + (p*w) + (g*cos(theta)*sin(phi));
