@@ -34,15 +34,15 @@ g = 9.81; % gravitational acceleration
 
 sigmaT = deg2rad(10); % Thrust angle
 qbar = 250;  % Dynamic pressure
-S= 2;  % Wing area
+S= 16;  % Wing area
 T = 5000; % Thrust
 
-Ixx = 10000; % Moment of inertia about the x axis
-Iyy = 20000; % Moment of inertia about the y axis
-Izz = 30000; % Moment of inertia about the z axis
+Ixx = 1000; % Moment of inertia about the x axis
+Iyy = 2000; % Moment of inertia about the y axis
+Izz = 3000; % Moment of inertia about the z axis
 Ixz = 500; % Product of inertia between x and z axes
 
-b = 15; % Wingspan
+b = 11; % Wingspan
 c = 3; % Mean aerodynamic chord
 Cl = 0.005; % Rolling moment coefficient
 Cm = -0.02; % Pitching moment coefficient
@@ -76,7 +76,7 @@ end
 
 y0 = [50 5 -2 0.1 0.05 0.08 5 0 10 500 0 -200];
 
-tspan = [0 1000];
+tspan = [0 100];
 [t,y] = ode45(@dof,tspan,y0);
 
 
@@ -98,6 +98,7 @@ zpos = y(:,12);
 
 figure;
 plot3(xpos,ypos,zpos);
+xlabel('x');ylabel('y');zlabel('z');
 
 figure;
 plot(t,u, t,v, t,w);
