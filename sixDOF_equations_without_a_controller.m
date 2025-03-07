@@ -117,3 +117,10 @@ plot(t,phi, t,theta, t,psi);
 xlabel('Time');
 ylabel('Euler Angles');
 legend('phi','theta','psi');
+
+%NOTE : As this simulation is being implemented without a controller and
+%proper aerodynamic effects, you might observe some unusual behavior in the
+%flight path or the velocities and the orientation of the airplane. Moving
+%forward into the project after adding a controller and considering
+%appropriate aerodynamic effects you can make the simulation more
+%realistic.
