@@ -1,7 +1,0 @@
-% Aerodynamic Model of the F-16 Aircraft
-addpath('\Users\deepa\NDI_controller_for_a_fighter_aircraft\data\')
-
-C_l,t = Cl(2,3,3,10,3,2,1000,200,150);
-
-
-
