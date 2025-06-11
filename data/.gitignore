@@ -1,0 +1,29 @@
+# Ignore MATLAB backup and autosave files
+*.asv
+*.autosave
+
+# Ignore MATLAB compiled files
+*.mex*
+*.p  # Obfuscated .m files
+
+# Ignore temporary files
+*.log
+*.tmp
+*.bak
+
+# Ignore Simulink autosave and cache
+slprj/
+simulink_autosave.asv
+*.slxc
+
+# Ignore project-specific files
+*.mlappinstall
+*.mlproj
+*.prj
+
+# Ignore system or user files
+.DS_Store
+Thumbs.db
+
+# Ignore Git-related folders (if using submodules or internal repos)
+.git/
