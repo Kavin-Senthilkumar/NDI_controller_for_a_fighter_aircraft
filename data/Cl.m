@@ -114,4 +114,3 @@ Cl_t = Cl_alpha_beta_del_h(Alpha, Beta, del_h) + ...
 end
 
 
-fprintf('.%4f', Cl_calculation(10,2,0.5,0.3,0.5,20, 25, 5, 6, 150));

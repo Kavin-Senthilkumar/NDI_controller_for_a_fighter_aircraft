@@ -1,4 +1,8 @@
-function Cm_t = Cm_calculation(Alpha,Beta,Del_h, del_lef, del_sb, x_cg_ref, x_cg)
+
+
+
+
+function Cm_t = Cm_calculation(Alpha,Beta,Del_h, del_lef, del_sb, x_cg_ref, x_cg, c, q, qbar, V)
 
     function [alpha,beta,Cm] = read_data(filename)
         data = readmatrix(filename,'Delimiter',',');
@@ -90,9 +94,10 @@ function Cm_t = Cm_calculation(Alpha,Beta,Del_h, del_lef, del_sb, x_cg_ref, x_cg
 
     %fprintf('%.4f\n',Cm_alpha_beta_del_h(20,20,25));
 
-    del_Cm_lef = C_m_lef_alpha_beta(Alpha,Beta) - Cm_alpha_beta_del_h_0(Alpha, Beta, Del_h);
+    del_Cm_lef = C_m_lef_alpha_beta(Alpha, Beta) - Cm_alpha_beta_del_h_0(Alpha, Beta);
 
-    
+    Cz_t =  Cz(Alpha, Beta, Del_h, del_lef, del_sb, c, q, V);
+
     Cm_t = Cm_alpha_beta_del_h(Alpha,Beta,Del_h) * etaDel_h(Del_h) + ...
         Cz_t * (x_cg_ref - x_cg) + ... %Need to import Cz_t from another file.
         del_Cm_lef(1 - (del_lef/25)) + ...

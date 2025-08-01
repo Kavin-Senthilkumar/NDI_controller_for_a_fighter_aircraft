@@ -96,4 +96,3 @@ function Cy_t = Cy_calculation(Alpha, Beta, del_lef, del_r, del_a, b, V, p, r)
 end
 
 
-fprintf('%.4f', Cy_calculation(20,20, 0.4, 0.5, 0.1, 25, 150, 1000, 2000));
