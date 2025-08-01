@@ -1,4 +1,4 @@
-function Cl_t = Cl_calculation(Alpha, Beta, del_lef, del_a, del_r, del_h, r, p, b, V)
+function Cl_t = Cl_calculation(Alpha, Beta, del_h, del_lef, del_a, del_r, r, p, b, V)
 
 % Read data for 3D interpolation (alpha, beta)
 function [alpha, beta, Cl] = read_data(filename)

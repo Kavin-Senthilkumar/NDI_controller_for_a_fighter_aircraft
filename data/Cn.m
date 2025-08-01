@@ -1,6 +1,6 @@
 % Cn
 
-function Cn_t = Cn_calculation(Alpha, Beta, Del_h, del_lef, del_a, c, b, x_cg_ref, x_cg, r, V, beta)
+function Cn_t = Cn_calculation(Alpha, Beta, Del_h, del_lef, del_r, del_a, c, b, x_cg_ref, x_cg, p, r, V)
 
     function [alpha,beta,Cn] = read_data(filename)
         data = readmatrix(filename, 'Delimiter',',');
@@ -106,7 +106,7 @@ function Cn_t = Cn_calculation(Alpha, Beta, Del_h, del_lef, del_a, c, b, x_cg_re
     del_Cn_del_a_20_lef = Cn_del_a_20_lef(Alpha,Beta) - Cn_lef(Alpha,Beta) - (Cn_del_a_20(Alpha,Beta) - Cn_alpha_beta_del_h_0(Alpha,Beta));
     del_Cn_del_r_30 = Cn_del_r_30(Alpha,Beta) - Cn_alpha_beta_del_h_0(Alpha,Beta);
 
-
+    Cy_t = Cy(Alpha, Beta, del_lef, del_r, del_a, b, V, p, r);
 
     Cn_t = Cn_alpha_beta_del_h(Alpha,Beta,Del_h) + ...
         del_Cn_lef*(1-(del_lef/25)) + ...
@@ -118,3 +118,4 @@ function Cn_t = Cn_calculation(Alpha, Beta, Del_h, del_lef, del_a, c, b, x_cg_re
         del_Cn_beta(Alpha) * Beta ;
 
 end
+

@@ -1,8 +1,6 @@
 
 
-
-
-function Cm_t = Cm_calculation(Alpha,Beta,Del_h, del_lef, del_sb, x_cg_ref, x_cg, c, q, qbar, V)
+function Cm_t = Cm_calculation(Alpha,Beta,Del_h, del_lef, del_sb, x_cg_ref, x_cg, c, q, V)
 
     function [alpha,beta,Cm] = read_data(filename)
         data = readmatrix(filename,'Delimiter',',');
@@ -61,7 +59,11 @@ function Cm_t = Cm_calculation(Alpha,Beta,Del_h, del_lef, del_sb, x_cg_ref, x_cg
         alpha = data(:,1);
         del_h = data(:,2);
         Cm = data(:,3);
-        F = scatteredInterpolant(alpha, del_h, Cm, "linear");
+        [unique_coords, ~, idx] = unique([alpha, del_h], 'rows');
+        unique_alpha = unique_coords(:, 1);
+        unique_del_h = unique_coords(:, 2);
+        unique_Cm = accumarray(idx, Cm, [], @mean);
+        F = scatteredInterpolant(unique_alpha, unique_del_h, unique_Cm, "linear");
         Cm = F(Alpha, Del_h);
     end
     %fprintf('%.4f',del_Cm_ds_alpha_del_h(20,20));
@@ -100,10 +102,12 @@ function Cm_t = Cm_calculation(Alpha,Beta,Del_h, del_lef, del_sb, x_cg_ref, x_cg
 
     Cm_t = Cm_alpha_beta_del_h(Alpha,Beta,Del_h) * etaDel_h(Del_h) + ...
         Cz_t * (x_cg_ref - x_cg) + ... %Need to import Cz_t from another file.
-        del_Cm_lef(1 - (del_lef/25)) + ...
+        del_Cm_lef*(1 - (del_lef/25)) + ...
         del_C_m_sb_alpha(Alpha) * (del_sb/60) +...
-        ((c*qbar)/(2*V)) * ((Cmq_alpha(Alpha) + del_Cmq_lef_alpha(Alpha))*(1-(del_lef/25))) + ...
+        ((c*q)/(2*V)) * ((Cmq_alpha(Alpha) + del_Cmq_lef_alpha(Alpha))*(1-(del_lef/25))) + ...
         del_Cm_alpha(Alpha) + ...
         del_Cm_ds_alpha_del_h(Alpha, Del_h);
 
 end
+
+%fprintf('%.4f', Cm_calculation(5.0,2.0,-2.0, 10.0, 0.0, 0.25, 0.3, 2.5, 0.01, 100.0));

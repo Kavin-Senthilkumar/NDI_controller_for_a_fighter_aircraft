@@ -1,6 +1,6 @@
 % Six DOF Differential equation
 
-function dy = dof(~, y, c, b, AIL, RDR, ELV, m, S, Ixx, Iyy, Izz, Ixz)
+function dy = dof(~, y, c, b, AIL, RDR, ELV,LEF, SB, m, S, Ixx, Iyy, Izz, Ixz, x_cg, x_cg_ref)
     % State variables
     V_t = y(1);    % Total velocity (m/s)
     alpha = deg2rad(y(2)); % Angle of attack (rad)
@@ -21,12 +21,13 @@ function dy = dof(~, y, c, b, AIL, RDR, ELV, m, S, Ixx, Iyy, Izz, Ixz)
     qbar = AD.qbar;       % Dynamic pressure
     
     % Compute aerodynamic coefficients
-    aero_coeff = ADCE(qbar, V_t, c, b, p, q, r, alpha, beta, ELV, RDR, AIL);
+    aero_coeff = F16_aero(alpha, beta, AIL, RDR, ELV, LEF, SB, p, q, r, c, b, V_t, x_cg, x_cg_ref);
     Cx = aero_coeff(1); % Longitudinal force coefficient
-    Cz = aero_coeff(2); % Normal force coefficient
-    Cl = aero_coeff(3); % Roll moment coefficient
-    Cm = aero_coeff(4); % Pitch moment coefficient
-    Cn = aero_coeff(5); % Yaw moment coefficient
+    Cy = aero_coeff(2); % Normal force coefficient
+    Cz = aero_coeff(3);
+    Cl = aero_coeff(4); % Roll moment coefficient
+    Cm = aero_coeff(5); % Pitch moment coefficient
+    Cn = aero_coeff(6); % Yaw moment coefficient
     
     % Velocity components in body frame
     u = V_t * cos(alpha) * cos(beta); % X-axis velocity (m/s)
@@ -39,7 +40,7 @@ function dy = dof(~, y, c, b, AIL, RDR, ELV, m, S, Ixx, Iyy, Izz, Ixz)
     
     % Force equations (acceleration in body frame)
     udot = -(q * w) + (r * v) - (g * sin(theta)) + (qbar * S * Cx) / m + (T * cos(sigmaT)) / m;
-    vdot = -(r * u) + (p * w) + (g * cos(theta) * sin(phi));
+    vdot = -(r * u) + (p * w) + (g * cos(theta) * sin(phi)) + ((qbar*S)/m)*Cy;
     wdot = -(p * v) + (q * u) + (g * cos(theta) * cos(phi)) + (qbar * S * Cz) / m - (T * sin(sigmaT)) / m;
     
     % Moment equations (angular acceleration)
