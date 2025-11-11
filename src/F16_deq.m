@@ -1,6 +1,6 @@
 % Six DOF Differential equation
 
-function dy = F16model(~,Y,U)
+function dy = F16model(Y,U)
 
 
     % State variables
@@ -65,15 +65,15 @@ function dy = F16model(~,Y,U)
     aero_coeff = F16_aero(alpha, beta, del_A, del_R, del_E, del_LEF, del_SB, p, q, r, c, b, V_t, x_cg, x_cg_ref);
     Cx = aero_coeff(1); % Longitudinal force coefficient
     Cy = aero_coeff(2); % Normal force coefficient
-    Cz = aero_coeff(3);
-    Cl = aero_coeff(4); % Roll moment coefficient
-    Cm = aero_coeff(5); % Pitch moment coefficient
-    Cn = aero_coeff(6); % Yaw moment coefficient
+    Cz = 0.456; %aero_coeff(3);
+    Cl = 0.342; %aero_coeff(4); % Roll moment coefficient
+    Cm = 0.345; %aero_coeff(5); % Pitch moment coefficient
+    Cn = 0.234; %aero_coeff(6); % Yaw moment coefficient
     
     % Velocity components in body frame
     
     % Thrust (simplified as zero for this model)
-    T = thrtl*m*g;         % Thrust force (N)
+    T = 0;         % Thrust force (N)
     %sigmaT = 0;    % Thrust angle (rad)
     
     % Force equations (acceleration in body frame)
