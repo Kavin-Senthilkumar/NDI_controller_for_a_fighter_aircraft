@@ -16,3 +16,13 @@ g = 9.81; % m/s^2
 
 xcgr = 0.35*c_bar; % m
 xcg = 0.3*c_bar; % m
+
+V_reference_mps = 300; % mps
+rho_reference_kgpm3 = 1.225; % kgpm3
+nv = 0.7;
+nrho = 1.0;
+
+Tmax = 105700; % N
+xf_m = -0.3;
+zf_m = 0.5;
+alfaf_deg = -2.5; % degrees
