@@ -6,7 +6,7 @@ Iyy = 75674; % kg-m^2
 Izz = 85552; % kg-m^2
 Ixz = 1331; % kg-m^2
 
-I = [Ixx 0 0; 0 Iyy 0; Ixz 0 Izz];
+I = [Ixx 0 -Ixz; 0 Iyy 0; -Ixz 0 Izz];
 c_bar = 3.45; % m
 
 b = 9.144; % m
