@@ -18,4 +18,9 @@ Fighter aircraft operate in highly dynamic and unpredictable environments, requi
 - Robust stabilization during extreme maneuvers.
 - Modular design for integration into existing flight simulation frameworks.
 
+### Technologies Used
+- **Programming Language**: MATLAB
+- **Simulation Environment**: 
+
+- **Version Control**: Git.
 
